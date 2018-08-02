@@ -54,6 +54,15 @@ class MaterialTabView extends React.PureComponent {
     return null
   }
 
+  // Fix to separate tab bar testID from other
+  _newGetTestID = ({ route }) => {
+    const { descriptors } = this.props
+    const descriptor = descriptors[route.key]
+    const options = descriptor.options
+
+    return options.tabBarButtonTestID
+  }
+
   _renderTabBar = () => {
     const {
       tabBarComponent: TabBarComponent = BottomTabBar,
@@ -88,7 +97,7 @@ class MaterialTabView extends React.PureComponent {
         getLabelText={getLabelText}
         getButtonComponent={getButtonComponent}
         getAccessibilityLabel={getAccessibilityLabel}
-        getTestID={getTestID}
+        getTestID={this._newGetTestID}
         renderIcon={renderIcon}
       />
     )
